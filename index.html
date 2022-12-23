@@ -15,8 +15,10 @@
   </header>
   <main>
     main
-    <input id="addform" type="text">
+    <input id="serach" type="text" placeholder="検索">
+    <input id="addform" type="text" placeholder="追加">
     <button id="addbutton">登録</button>
+    <input id="editform" type="text" placeholder="編集">
     <ul id="ul">
 
     </ul>
@@ -24,6 +26,8 @@
   <script src="https://unpkg.com/stein-js-client"></script>
   <script>
     const ul = document.getElementById('ul')
+    const editform = document.getElementById('editform');
+
     const store = new SteinStore(
       "https://api.steinhq.com/v1/storages/63a5a77dd27cdd09f0d14d74"
     );
@@ -37,20 +41,38 @@
         console.log("title:" + element.登録);
         const li = document.createElement('li')
         const div = document.createElement('div')
+        div.style = "display:flex;"
         const p = document.createElement('p')
+        const edit = document.createElement('span')
+        edit.textContent = "😭"
+        edit.style = "margin:16px"
+        edit.data = element.登録
         p.textContent = element.登録
-        li.appendChild(p)
+        div.appendChild(p)
+        div.appendChild(edit)
+        li.appendChild(div)
         ul.appendChild(li)
+        edit.addEventListener("click", (e) => {
+          store.edit("シート1", {
+            search: { 登録: edit.data },
+            set: { 登録: editform.value }
+          })
+            .then(res => {
+              console.log(res);
+              window.location.reload();
+            });
+        })
       }
     });
 
     const addform = document.getElementById('addform');
     const addbutton = document.getElementById('addbutton');
+    function edit() {
+    }
     function add() {
       console.log(addform.value)
       store.append("シート1", [{ 登録: addform.value }])
         .then(res => {
-          // done
           console.log(res);
           window.location.reload();
         });
@@ -58,10 +80,12 @@
 
     addbutton.addEventListener("click", () => {
       add();
-
     });
 
-
+    const serach = document.getElementById('serach')
+    serach.addEventListener('change', () => {
+      console.log(serach.value);
+    })
   </script>
 </body>
 
