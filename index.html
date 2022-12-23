@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>test document</title>
+</head>
+
+<body>
+
+  <header>
+    title
+  </header>
+  <main>
+    main
+    <input id="addform" type="text">
+    <button id="addbutton">登録</button>
+    <ul id="ul">
+
+    </ul>
+  </main>
+  <script src="https://unpkg.com/stein-js-client"></script>
+  <script>
+    const ul = document.getElementById('ul')
+    const store = new SteinStore(
+      "https://api.steinhq.com/v1/storages/63a5a77dd27cdd09f0d14d74"
+    );
+
+    store.read("シート1", { limit: 100, offset: 0 }).then(data => {
+      console.dir(data);
+      console.log(" - - - - - - - - - - - ");
+      for (let i = 0; i < data.length; i++) {
+        const element = data[i];
+        console.log("title:" + element.id);
+        console.log("title:" + element.登録);
+        const li = document.createElement('li')
+        const div = document.createElement('div')
+        const p = document.createElement('p')
+        p.textContent = element.登録
+        li.appendChild(p)
+        ul.appendChild(li)
+      }
+    });
+
+    const addform = document.getElementById('addform');
+    const addbutton = document.getElementById('addbutton');
+    function add() {
+      console.log(addform.value)
+      store.append("シート1", [{ 登録: addform.value }])
+        .then(res => {
+          // done
+          console.log(res);
+        });
+    }
+
+    addbutton.addEventListener("click", () => {
+      add();
+    });
+
+
+  </script>
+</body>
+
+</html>
