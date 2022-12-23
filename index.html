@@ -52,12 +52,13 @@
         .then(res => {
           // done
           console.log(res);
+          window.location.reload();
         });
     }
 
     addbutton.addEventListener("click", () => {
       add();
-      window.location.reload();
+
     });
 
 
