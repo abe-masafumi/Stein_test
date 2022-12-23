@@ -8,17 +8,17 @@
   <title>test document</title>
 </head>
 
-<body style="font-size: 16px;">
+<body>
 
   <header>
     title
   </header>
   <main>
     main
-    <input id="serach" type="text" placeholder="検索">
-    <input id="addform" type="text" placeholder="追加">
+    <input id="serach" type="text" placeholder="検索" style="font-size: 16px;">
+    <input id="addform" type="text" placeholder="追加" style="font-size: 16px;">
     <button id="addbutton">登録</button>
-    <input id="editform" type="text" placeholder="編集">
+    <input id="editform" type="text" placeholder="編集" style="font-size: 16px;">
     <ul id="ul">
 
     </ul>
@@ -31,9 +31,11 @@
     const store = new SteinStore(
       "https://api.steinhq.com/v1/storages/63a5a77dd27cdd09f0d14d74"
     );
-
+    let get
     store.read("シート1", { limit: 100, offset: 0 }).then(data => {
       console.dir(data);
+      get = data
+      console.log(get);
       console.log(" - - - - - - - - - - - ");
       for (let i = 0; i < data.length; i++) {
         const element = data[i];
