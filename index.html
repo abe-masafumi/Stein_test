@@ -8,7 +8,7 @@
   <title>test document</title>
 </head>
 
-<body>
+<body style="font-size: 16px;">
 
   <header>
     title
@@ -53,6 +53,9 @@
         li.appendChild(div)
         ul.appendChild(li)
         edit.addEventListener("click", (e) => {
+          if (editform.value == "") {
+            return
+          }
           store.edit("シート1", {
             search: { 登録: edit.data },
             set: { 登録: editform.value }
