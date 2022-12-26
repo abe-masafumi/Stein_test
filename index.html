@@ -14,12 +14,15 @@
     title
   </header>
   <main>
-    main
     <input id="serach" type="text" placeholder="検索" style="font-size: 16px;">
-    <input id="addform" type="text" placeholder="追加" style="font-size: 16px;">
-    <button id="addbutton">登録</button>
+    <div style="display: flex;">
+      <input id="addform" type="text" placeholder="追加" style="font-size: 16px;">
+      <button id="addbutton">登録</button>
+    </div>
     <input id="editform" type="text" placeholder="編集" style="font-size: 16px;">
-    <p class="no_schedule" data-title="" data-author="">検索したスケジュールは見つかりませんでした</li>
+    <ul class="no_schedule" id="searchul" data-title="" data-author="">
+
+    </ul>
     <ul id="ul">
     </ul>
 
@@ -28,6 +31,7 @@
   <script>
     const ul = document.getElementById('ul')
     const editform = document.getElementById('editform');
+    const searchul = document.getElementById('searchul');
 
     const store = new SteinStore(
       "https://api.steinhq.com/v1/storages/63a5a77dd27cdd09f0d14d74"
@@ -89,13 +93,19 @@
     serach.addEventListener('change', (e) => {
       const keyword = e.target.value;
       const $schedules = document.querySelectorAll("#ul > li");
-      const $no_schedule = document.querySelector(".no_schedule");
       if (keyword) {
-        console.log("あり");
-        console.log($schedules);
-        console.log($no_schedule);
+        console.log(get);
+        var matched = get.filter(function (obj) {
+          return obj.登録.match(keyword);
+        });
 
-
+        console.log(matched);
+        for (i = 0; i < matched.length; i++) {
+          const searchli = document.createElement('li')
+          console.log(matched[i].登録);
+          searchli.textContent = matched[i].登録
+          searchul.appendChild(searchli)
+        }
       } else {
         console.log("Kara");
       }
