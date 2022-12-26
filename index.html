@@ -90,7 +90,7 @@
     });
 
     const serach = document.getElementById('serach')
-    serach.addEventListener('change', (e) => {
+    serach.addEventListener('input', (e) => {
       const keyword = e.target.value;
       const $schedules = document.querySelectorAll("#ul > li");
       if (keyword) {
@@ -99,14 +99,17 @@
           return obj.登録.match(keyword);
         });
 
+
         console.log(matched);
         for (i = 0; i < matched.length; i++) {
           const searchli = document.createElement('li')
+
           console.log(matched[i].登録);
           searchli.textContent = matched[i].登録
           searchul.appendChild(searchli)
         }
       } else {
+
         console.log("Kara");
       }
     })
